@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 
-// import { Provider } from "./components/Context";
+
 import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Createcourse from "./components/Createcourse";
@@ -14,8 +14,8 @@ import UserSignOut from "./components/UserSignOut";
 import UserSignUp from "./components/UserSignUp";
 
 
-export const  CourseContext = React.createContext();
-export const CourseDetailContext = React.createContext();
+// export const  CourseContext = React.createContext();
+// export const CourseDetailContext = React.createContext();
 
 function App() {
   return (

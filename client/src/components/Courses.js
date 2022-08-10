@@ -1,8 +1,9 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState, useEffect, useContext }from 'react';
 import axios from 'axios';
-
+import { Context } from './Context';
 
 function Courses() {
+    const context = useContext(Context)
     const [courses, setCourses] = useState([])
 
     useEffect(() => {

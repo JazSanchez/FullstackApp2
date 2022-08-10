@@ -1,27 +1,26 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-const Context = React.createContext(); 
+export const Context = React.createContext(); 
 
-export class Provider extends Component {
-
-  constructor() {
-    super();
-  }
-
-  render() {
+export const Provider = (props) => {
+// const data = new Data();
+ const tomato = 'Hello'
+const [test, setTest]= useState('test')
+  const value = {test, tomato}
     return (
-      <Context.Provider>
-        {this.props.children}
+
+      <Context.Provider value={value}>
+        {props.children}
       </Context.Provider>  
     );
-  }
+
 
   
-  signIn = async () => {
+  const signIn = async () => {
 
   }
 
-  signOut = () => {
+  const signOut = () => {
 
   }
 }
