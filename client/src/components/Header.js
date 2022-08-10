@@ -1,22 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Context } from "./Context";
 
-export default class Header extends React.PureComponent {
-  render() {
+export default function Header() {
+
+    // const context = useContext(Context);
+    // const authUser = context.authenticateUser;
     return (
+
+    // const context = useContext(Context);
+    // const authUser = context.authenticateUser;
       <header>
-      <div class="wrap header--flex">
-          <h1 class="header--logo"><a href="index.html">Courses</a></h1>
+        <div className="wrap header--flex">
+          <h1 className="header--logo">
+            <a href="/courses">Courses</a>
+          </h1>
           <nav>
-              <ul class="header--signedout">
-                  <li><a href="sign-up.html">Sign Up</a></li>
-                  <li><a href="sign-in.html">Sign In</a></li>
-              </ul>
+            {authUser ? (
+              <React.Fragment>
+                <span>Welcome, {authUser.name}!</span>
+
+                <Link>
+                  <a href="/signout">Sign Out</a>
+                </Link>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Link className="signup">
+                  <a href="/signup">Sign Up</a>
+                </Link>
+                <Link className="signin">
+                  <a href="/signin">Sign In</a>
+                </Link>
+              </React.Fragment>
+            )}
           </nav>
-      </div>
-  </header>
+        </div>
+      </header>
     );
   }
-};
-
 

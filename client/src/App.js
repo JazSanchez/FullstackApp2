@@ -14,6 +14,10 @@ import UserSignOut from "./components/UserSignOut";
 import UserSignUp from "./components/UserSignUp";
 
 
+
+const HeaderWithContext = withContext(Header);
+
+
 // export const  CourseContext = React.createContext();
 // export const CourseDetailContext = React.createContext();
 
@@ -23,13 +27,13 @@ function App() {
       <div id="root">
         <BrowserRouter>
         <div>
-          <Header />
+          <HeaderWithContext />
           <Routes>
             {/* <Header /> */}
             <Route path="/" element= {<Courses />} />
             <Route path="/courses/:id" element={<CourseDetail />} />
             <Route path="/courses/create" element={<Createcourse />}/>
-            <Route path="/courses/:id/update" element={<UpdateCourse />}/>
+            {/* <Route path="/courses/:id/update" element={<UpdateCourse />}/> */}
             <Route path='/signin' element={<UserSignIn />} />
             <Route path='/signout' element={<UserSignOut />} />
             <Route path='/signup' element={<UserSignUp />} />
