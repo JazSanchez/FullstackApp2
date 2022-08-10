@@ -16,8 +16,6 @@ export default function UserSignIn()  {
 
 
   const submit = () => {
-    const { context } = props;
-    const { from } = props.location.state || { from: { pathname: '/authenticated' } };
     const { username, password } = state;
 
     context.actions.signIn(username, password)
@@ -27,17 +25,17 @@ export default function UserSignIn()  {
             return { errors: [ 'Sign-in was unsuccessful' ] };
           });
         } else {
-          props.history.push(from);
+          history.push(from);
         }
       })
       .catch((error) => {
         console.error(error);
-        props.history.push('/error');
+        history.push('/error');
       });
   }
 
  const cancel = () => {
-    props.history.push('/');
+    history.push('/');
   }
 
 
