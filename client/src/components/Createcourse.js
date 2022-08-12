@@ -1,9 +1,12 @@
 import React from 'react';
+// import axios from 'axios'
+// import { Context } from '../../Context';
 
 
 function Createcourse() {
-
+ 
  return(
+
     <main>
     <div className="wrap">
         <h2>Create Course</h2>

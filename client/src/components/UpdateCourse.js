@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+// import { Context } from './Context';
 
 
 function UpdateCourse() {
+
+    // const { course } = useContext(Context);
+
     const [course, setCourse] = useState({})
     const [id, setId] = useState(2)
     const [updatedAt, setUpdatedAt] = useState(null);
@@ -20,10 +24,10 @@ return (
                 <form>
                     <div className="main--flex">
                         <div>
-                            <label htmlFor="courseTitle">Course Title</label>
+                            <label htmlFor="courseTitle"></label>
                             {/* <input id="courseTitle" name="courseTitle" type="text" value="Build a Basic Bookcase"> */}
 
-                            <p>By Joe Smith</p>
+                            <p></p>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription"></textarea>

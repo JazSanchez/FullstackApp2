@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext }from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Context } from './Context';
 
 function Courses() {
-    const context = useContext(Context)
+    const context = useContext( Context);
+    console.log(context);
     const [courses, setCourses] = useState([])
 
     useEffect(() => {
-      axios.get('http://localhost:5000/api/courses')
+      context.data.getCourses()
       .then(res => {
           console.log(res)
-          setCourses(res.data)
+          setCourses(res)
       })
       .catch(err => {
           console.log(err)

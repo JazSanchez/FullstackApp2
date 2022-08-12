@@ -1,15 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Context } from "./Context";
 
-export default function Header() {
-
-    // const context = useContext(Context);
-    // const authUser = context.authenticateUser;
+export default class Header extends React.PureComponent {
+  render() {
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
     return (
-
-    // const context = useContext(Context);
-    // const authUser = context.authenticateUser;
       <header>
         <div className="wrap header--flex">
           <h1 className="header--logo">
@@ -19,18 +15,17 @@ export default function Header() {
             {authUser ? (
               <React.Fragment>
                 <span>Welcome, {authUser.name}!</span>
-
-                <Link>
-                  <a href="/signout">Sign Out</a>
+                <Link className="signout" to="/signout">
+                  Sign Out
                 </Link>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <Link className="signup">
-                  <a href="/signup">Sign Up</a>
+                <Link className="signup" to="/signup">
+                  Sign Up
                 </Link>
-                <Link className="signin">
-                  <a href="/signin">Sign In</a>
+                <Link className="signin" to="/signin">
+                  Sign In
                 </Link>
               </React.Fragment>
             )}
@@ -39,4 +34,4 @@ export default function Header() {
       </header>
     );
   }
-
+}

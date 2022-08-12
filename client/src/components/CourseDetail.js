@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+// import { Context } from '../../Context';
+import Courses from './Courses';
 
 
 
 
 
 function CourseDetail() {
+    // const context = useContext(Context)
     const [course, setCourse] = useState({})
     const [id, setId] = useState(2)
     
@@ -20,12 +23,23 @@ function CourseDetail() {
         })
     }, [id])
 
+    let deleteCourse = (id) => {
+        axios.delete(`http://localhost:5000/api/courses/${id}`)
+        .then(response => {
+            if (response.data != null){
+                setCourse({course: Courses.filter((course)=> {
+                    return course.id !== id;
+                })})
+            }
+        })
+    }
+
     return (
         <main>
             <div className="actions--bar">
                 <div className="wrap">
                     <a className="button" href={`${course.id}/update`}>Update Course</a>
-                    <a className="button" href="/">Delete Course</a>
+                    <a className="button" onClick={deleteCourse(course.id)} href="/">Delete Course</a>
                     <a className="button button-secondary" href="/">Return to List</a>
                 </div>
             </div>
@@ -37,9 +51,9 @@ function CourseDetail() {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{course.title}</h4>
-                            <p>{`By ${course.User.firstName} ${course.User.lastName}`}</p>
+                            <p></p>
 
-                            <p>{course.description}</p>
+                            <p></p>
              
                         </div>
                         <div>
