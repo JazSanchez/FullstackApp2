@@ -1,15 +1,17 @@
+import { param } from 'express/lib/request';
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-// import { Context } from './Context';
+import { Context } from './Context';
 
 
 function UpdateCourse() {
 
-    // const { course } = useContext(Context);
+    const context = useContext(Context);
 
+    const [data, setData] = useState([])
     const [course, setCourse] = useState({})
-    const [id, setId] = useState(2)
-    const [updatedAt, setUpdatedAt] = useState(null);
+    const { id } = param
+    // const [updatedAt, setUpdatedAt] = useState(null);
 
     useEffect(() => {
   

@@ -1,10 +1,36 @@
-import React from 'react';
-// import axios from 'axios'
-// import { Context } from '../../Context';
+import React, { useContext, useState, useEffect }from 'react';
+import { Context } from './Context';
 
 
 function Createcourse() {
- 
+  const context = useContext(Context)
+    console.log(context)
+
+    const[title, setTitle] = useState('');
+    const[description, setDescription] = useState('');
+    const[course, setCourse] = useState('');
+
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+    addCourse(title, description)
+};
+
+
+const addCourse = (title, description) => {
+    client.post('', {
+        title: title,
+        description: description,
+    })
+    .then((response)=> {
+        setCourse([response.data, ... course]);
+    });
+    setTitle('');
+    setDescription('');
+}
+       
+    
+
  return(
 
     <main>
@@ -20,8 +46,8 @@ function Createcourse() {
         <form>
             <div className="main--flex">
                 <div>
-                    <label for="courseTitle"></label>
-                    {/* <input id="courseTitle" name="courseTitle" type="text" value=""> */}
+                    <label htmlFor="courseTitle">Course Title</label>
+                    <input id="courseTitle" name="courseTitle" type="text" value=""/>
 
                     <p>By Joe Smith</p>
 
@@ -29,8 +55,8 @@ function Createcourse() {
                     <textarea id="courseDescription" name="courseDescription"></textarea>
                 </div>
                 <div>
-                    <label for="estimatedTime">Estimated Time</label>
-                    {/* <input id="estimatedTime" name="estimatedTime" type="text" value=""> */}
+                    <label htmlFor="estimatedTime">Estimated Time</label>
+                    <input id="estimatedTime" name="estimatedTime" type="text" value=""/>
 
                     <label for="materialsNeeded">Materials Needed</label>
                     <textarea id="materialsNeeded" name="materialsNeeded"></textarea>

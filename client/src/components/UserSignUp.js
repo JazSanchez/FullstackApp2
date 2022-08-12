@@ -73,12 +73,12 @@ export default class UserSignUp extends Component {
   }
 
   change = (event) => {
-    const firstName = event.target.firstName;
+    const name = event.target.name;
     const value = event.target.value;
 
     this.setState(() => {
       return {
-        [firstName]: value
+        [name]: value,
       };
     });
   }
