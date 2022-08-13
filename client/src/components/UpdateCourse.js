@@ -1,51 +1,108 @@
-import { param } from 'express/lib/request';
-import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
-import { Context } from './Context';
+import React, { useContext, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Context } from "./Context";
+import Form from "./Form";
 
 
 function UpdateCourse() {
+  const history = useNavigate();
+  const context = useContext(Context);
+  const authUser = context.authenticatedUser;
+  console.log(context);
 
-    const context = useContext(Context);
+  const [course, setCourse] = useState("");
+  const [errors, setErrors] = useState([]);
+  const {id } = useParams();
 
-    const [data, setData] = useState([])
-    const [course, setCourse] = useState({})
-    const { id } = param
-    // const [updatedAt, setUpdatedAt] = useState(null);
+  const submit = (e) => {
+    const {id} = authUser;
+    console.log(authUser);
+    const course = {
+      title: e.target[0].value,
+      description: e.target[1].value,
+      estimatedTime: e.target[2].value,
+      materialsNeeded: e.target[3].value,
+        userId: id
+    };
 
-    useEffect(() => {
-  
-        axios.put(`http://localhost:5000/courses/${id}/update`)
-            .then(response => setUpdatedAt(response.data.updatedAt));
+    context.data
+      .getCourse(course)
+      .then((errors) => {
+        if (errors.length) {
+          setErrors({ errors });
+        } else {
+        //   history.push("/");
+        console.log('course created')
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // history.("/error");
+      });
+  };
 
-    }, [id]);
+  const cancel = () => {
+       history.push('/');
 
-return ( 
+  };
+
+  // const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     addCourse(title, description)
+  // };
+
+  // const addCourse = (title, description) => {
+  //      context.data.createCourse('', {
+  //         title: title,
+  //         description: description,
+  //     })
+  //     .then((response)=> {
+  //         setCourse([response.data, ... course]);
+  //     });
+  //     setTitle('');
+  //     setDescription('');
+  // }
+
+  return (
     <div className="wrap">
-                <h2>Update Course</h2>
-                <form>
-                    <div className="main--flex">
-                        <div>
-                            <label htmlFor="courseTitle"></label>
-                            {/* <input id="courseTitle" name="courseTitle" type="text" value="Build a Basic Bookcase"> */}
-
-                            <p></p>
-
-                            <label htmlFor="courseDescription">Course Description</label>
-                            <textarea id="courseDescription" name="courseDescription"></textarea>
-                        </div>
-                        <div>
-                            <label htmlFor="estimatedTime">Estimated Time</label>
-                            {/* <input id="estimatedTime" name="estimatedTime" type="text" value="14 hours"> */}
-
-                            <label htmlFor="materialsNeeded">Materials Needed</label>
-                            <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
-                        </div>
-                    </div>
-                    <button className="button" type="submit">Update Course</button><button className="button button-secondary" onClick="event.preventDefault(); location.href='/';">Cancel</button>
-                </form>
-            </div>
-)
+      <h2>Update Course</h2>
+      <Form
+        cancel={cancel}
+        errors={errors}
+        submit={submit}
+        submitButtonText="Update Course"
+        elements={() => (
+          <React.Fragment>
+            <label htmlFor="firstName">Title</label>
+            <input id="title" name="title" type="text" defaultValue="" />
+            <label htmlFor="description">Desc ription</label>
+            <input
+              id="description"
+              name="description"
+              type="text"
+              defaultValue=""
+            />
+            <label htmlFor="Estimated Time">Estimated Time</label>
+            <input
+              id="estimatedTime"
+              name="estimatedTime"
+              type="text"
+              defaultValue=""
+            />
+            <label htmlFor="Materials Needed">Materials Needed</label>
+            <input
+              id="materialsNeeded"
+              name="materialsNeeded"
+              type="text"
+              defaultValue=""
+            />
+          </React.Fragment>
+        )}
+      />
+      {/* <p> */}
+      {/* Already have a user account? <Link to="/signin">Click here</Link> to sign in! */}
+      {/* </p> */}
+    </div>
+  );
 }
-
 export default UpdateCourse;

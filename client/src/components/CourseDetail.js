@@ -1,25 +1,131 @@
-import React, { useState, useEffect, useContext } from 'react';
-// import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import { Context } from './Context';
+import {useNavigate, useParams  } from 'react-router-dom';
+import Form from './Form';
 
-function CourseDetail() {
-    const context = useContext(Context)
-    console.log(context)
-    const [course, setCourses] = useState({})
-    const [id, setId] = useState(2)
+export default function CourseDetail() {
     
-    useEffect(() => {
-        context.data.deleteCourse(id)
-        .then(res => {
-            console.log(res)
-            setCourses(res)
+    
+    const history = useNavigate();
+    const context = useContext(Context);
+    const authUser = context.authenticatedUser;
+    console.log(context);
+  
+    const [course, setCourse] = useState("");
+    const [errors, setErrors] = useState(''); 
+    const {id} = useParams();
+  
+    const submit = (e) => {
+      const {} = authUser;
+      console.log(authUser);
+      const course = {
+        title: e.target[0].value,
+        description: e.target[1].value,
+        estimatedTime: e.target[2].value,
+        materialsNeeded: e.target[3].value,
+          userId: id
+      };
+  
+      context.data
+        .getCourse(id)
+        .then((errors) => {
+          if (errors.length) {
+            setErrors({ errors });
+          } else {
+            history("/");
+          console.log('course created')
+          }
         })
-        .catch(err => {
-            console.log(err)
-        })
+        .catch((err) => {
+          console.log(err);
+        //   history("/error");
+        });
+    };
+
+    context.data
+    .deleteCourse(id)
+    .then((errors) => {
+      if (errors.length) {
+        setErrors({ errors });
+      } else {
+        // history("/");
+      console.log('course deleted')
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    //   history("/error");
+    });
+
+
+
+  
+    const cancel = () => {
+        //  history('/');
+  
+    };
+
+
+    // return (
+    //     <div className="wrap">
+    //         <h1>Course Detail</h1>
+    //         <Form
+    //           cancel={cancel}
+    //           errors={errors}
+    //           submit={submit}
+    //           submitButtonText="Update Course"
+    //           elements={() => (
+    //             <React.Fragment>
+    //                <label htmlFor="titile">Course Title</label>
+    //               <input
+    //                 id="titile"
+    //                 name="titile"
+    //                 type="text"
+    //                 defaultValue='' />
+    //                 <label htmlFor="description">Description</label>
+    //               <input
+    //                 id="description"
+    //                 name="description"
+    //                 type="text"
+    //                 defaultValue=''
+    //                 />
+    //                 <label htmlFor="estimatedTime">Estimated Time</label>
+    //                 <input
+    //                 id="estimatedTime"
+    //                 name="estimatedTime"
+    //                 type="text"
+    //                 defaultValue=''
+    //                 />
+    //                 <label htmlFor="materialsNeeded">Materials Needed</label>
+    //               <input
+    //                 id="materialsNeeded"
+    //                 name="materialsNeeded"
+    //                 type="text"
+    //                 defaultValue=''
+    //                  />
+    //             </React.Fragment>
+    //           )} />
+    //         {/* <p>
+    //           Already have a user account? <Link to="/signin">Click here</Link> to sign in!
+    //         </p> */}
+    //       </div>
+    //   );
+    // }
+
+
+      
+
+    // // const deleCourse = () => {
+    // //     context.data.deleteCourse()
+    // //     .then(res => {
+    // //         console.log(res)
+    // //         setCourses(res)
+    // //     })
+    // //     .catch(err => {
+    // //         console.log(err)
+    //     })
   
   
-      }, [])
   
 
     // let deleteCourse = (id) => {
@@ -43,7 +149,7 @@ function CourseDetail() {
                 </div>
             </div>
             
-            <div className="wrap" value={id} onChange={e => setId(e.target.value)}>
+            <div className="wrap" value={id} >
                 <h2>Course Detail</h2>
                 <form >
                     <div className="main--flex">
@@ -56,10 +162,10 @@ function CourseDetail() {
              
                         </div>
                         <div>
-                            <h3 className="course--detail--title">{course.estimatedTime}</h3>
+                            <h3 className="course--detail--title"></h3>
                             <p>14 hours</p>
 
-                            <h3 className="course--detail--title">{course.materialsNeeded}</h3>
+                            <h3 className="course--detail--title"></h3>
                             <ul className="course--detail--list">
                                 <li>1/2 x 3/4 inch parting strip</li>
                                 <li>1 x 2 common pine</li>
@@ -82,4 +188,3 @@ function CourseDetail() {
 
 }
 
-export default CourseDetail;

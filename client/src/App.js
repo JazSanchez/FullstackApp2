@@ -17,7 +17,6 @@ import PrivateRoute from "./PrivateRoute";
 import Authenticated from "./Authenticated";
 
 const HeaderWithContext = withContext(Header);
-const AuthWithContext = withContext(Authenticated);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
@@ -31,12 +30,12 @@ function App() {
           < HeaderWithContext />
           <Routes>
             <Route element={<PrivateRoute /> }>
-            <Route path="/authenticated" element={<AuthWithContext/>} />
+            <Route path="/authenticated" component={Authenticated} />
+            <Route path="/courses/create" element={<Createcourse />}/>
+            <Route path="/courses/:id/update" element={<UpdateCourse />}/>
             </Route>
             <Route path="/" element= {<Courses />} />
             <Route path="/courses/:id" element={<CourseDetail />} />
-            <Route path="/courses/create" element={<Createcourse />}/>
-            <Route path="/courses/:id/update" element={<UpdateCourse />}/>
             <Route path='/signin' element={<UserSignInWithContext />} />
             <Route path='/signout' element={<UserSignOutWithContext />} />
             <Route path='/signup' element={<UserSignUpWithContext />} />

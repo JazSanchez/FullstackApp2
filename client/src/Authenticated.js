@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useContext } from 'react';
+import Context from './components/Context'
 
-export default ({ context  }) => {
+export default () => {
+  let context = useContext(Context)
   const authUser = context.authenticatedUser;
   return (
   <div className="bounds">
