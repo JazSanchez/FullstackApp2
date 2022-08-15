@@ -39,7 +39,7 @@ function App() {
             <Route path='/signin' element={<UserSignInWithContext />} />
             <Route path='/signout' element={<UserSignOutWithContext />} />
             <Route path='/signup' element={<UserSignUpWithContext />} />
-            <Route component={NotFound} />
+            <Route path ='/notfound' element={<NotFound />} />
           </Routes>
           </div>
         </BrowserRouter>

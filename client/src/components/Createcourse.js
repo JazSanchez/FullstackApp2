@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Context } from "./Context";
 import Form from "./Form";
 
@@ -28,7 +28,7 @@ function Createcourse() {
     };
 
     context.data
-      .createCourse(course)
+      .createCourse(course, emailAddress, password)
       .then((errors) => {
         if (errors.length) {
           setErrors({ errors });
@@ -50,6 +50,7 @@ function Createcourse() {
 
 
   return (
+    <main>
     <div className="wrap">
       <h2>Create Course</h2>
       <Form
@@ -59,16 +60,16 @@ function Createcourse() {
         submitButtonText="Create Course"
         elements={() => (
           <React.Fragment>
-            <label htmlFor="firstName">Title</label>
+            <div className="main--flex">
+              <div>
+            <label htmlFor="title">Course Title</label>
             <input id="title" name="title" type="text" defaultValue="" />
-            <label htmlFor="description">Desc ription</label>
-            <input
-              id="description"
-              name="description"
-              type="text"
-              defaultValue=""
-            />
-            <label htmlFor="Estimated Time">Estimated Time</label>
+            <p>By </p>
+            <label htmlFor='description'>Course Description</label>
+            <textarea id='description' name="description" defaultValue=""/>
+          </div>
+          <div>
+            <label htmlFor="estimatatedTime">Estimated Time</label>
             <input
               id="estimatedTime"
               name="estimatedTime"
@@ -76,58 +77,24 @@ function Createcourse() {
               defaultValue=""
             />
             <label htmlFor="Materials Needed">Materials Needed</label>
-            <input
+            <textarea
               id="materialsNeeded"
               name="materialsNeeded"
               type="text"
               defaultValue=""
             />
+                 </div>
+            </div>
           </React.Fragment>
         )}
       />
-      {/* <p> */}
-      {/* Already have a user account? <Link to="/signin">Click here</Link> to sign in! */}
-      {/* </p> */}
+      <p> 
+      Already have a user account? <Link to="/signin">Click here</Link> to sign in!
+      </p>
     </div>
+    </main>
   );
 }
 
-// //  return(
-
-// //     <main>
-// //     <div className="wrap">
-// //         <h2>Create Course</h2>
-// //         <div className="validation--errors">
-// //             <h3>Validation Errors</h3>
-// //             <ul>
-// //                 <li>Please provide a value for "Title"</li>
-// //                 <li>Please provide a value for "Description"</li>
-// //             </ul>
-// //         </div>
-// //         <form>
-// //             <div className="main--flex">
-// //                 <div>
-// //                     <label htmlFor="courseTitle">Course Title</label>
-// //                     <input id="courseTitle" name="courseTitle" type="text" value=""/>
-
-// //                     <p>By Joe Smith</p>
-
-//                     <label for="courseDescription">Course Description</label>
-//                     <textarea id="courseDescription" name="courseDescription"></textarea>
-//                 </div>
-//                 <div>
-//                     <label htmlFor="estimatedTime">Estimated Time</label>
-//                     <input id="estimatedTime" name="estimatedTime" type="text" value=""/>
-
-//                     <label for="materialsNeeded">Materials Needed</label>
-//                     <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
-//                 </div>
-//             </div>
-//             <button className="button" type="submit" >Create Course</button><button className="button button-secondary" onClick="event.preventDefault(); location.href='/' ">Cancel</button>
-//         </form>
-//     </div>
-// </main>
-
-//  )
 
 export default Createcourse;
