@@ -7,7 +7,7 @@ import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Createcourse from "./components/Createcourse";
 import UpdateCourse from "./components/UpdateCourse";
-import NotFound from "./components/NotFound";
+import Forbidden from "./components/Forbidden";
 import Header from "./components/Header";
 import UserSignIn from "./components/UserSignIn";
 import UserSignOut from "./components/UserSignOut";
@@ -39,7 +39,7 @@ function App() {
             <Route path='/signin' element={<UserSignInWithContext />} />
             <Route path='/signout' element={<UserSignOutWithContext />} />
             <Route path='/signup' element={<UserSignUpWithContext />} />
-            <Route path ='/notfound' element={<NotFound />} />
+            <Route path ='/forbidden' element={<Forbidden />} />
           </Routes>
           </div>
         </BrowserRouter>

@@ -13,22 +13,48 @@ function Createcourse() {
 
 
   const [course, setCourse] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [estimatatedTime, setEstimatedTime] = useState("");
+  const [materialsNeeded, setMAterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
+
+const change = (e) =>{
+  const value = e.target.value;
+  switch(e.target.name){
+    case "title":
+      setTitle(value);
+      break;
+    case "description":
+      setDescription(value);
+      break;
+    case "estimatedTime":
+      setEstimatedTime(value);
+      break;
+      case "materialsNeeded":
+        setMAterialsNeeded(value);
+        break;
+    default:
+      return;
+  }
+}
+
 
 
   const submit = (e) => {
-    const {id, emailAddress, password} = authUser;
-    console.log(authUser);
-    const course = {
-      title: e.target[0].value,
-      description: e.target[1].value,
-      estimatedTime: e.target[2].value,
-      materialsNeeded: e.target[3].value,
-        userId: id
-    };
+   const emailAddress = authUser.emailAddress
+   const password = authUser.password
+ 
+    // const course = {
+    //   title: e.target[0].value,
+    //   description: e.target[1].value,
+    //   estimatedTime: e.target[2].value,
+    //   materialsNeeded: e.target[3].value,
+    //     userId: ''
+    // };
 
     context.data
-      .createCourse(course, emailAddress, password)
+      .createCourse(emailAddress, password, course)
       .then((errors) => {
         if (errors.length) {
           setErrors({ errors });
@@ -63,10 +89,10 @@ function Createcourse() {
             <div className="main--flex">
               <div>
             <label htmlFor="title">Course Title</label>
-            <input id="title" name="title" type="text" defaultValue="" />
+            <input id="title" name="title" type="text" value={title} onChange={change} />
             <p>By </p>
             <label htmlFor='description'>Course Description</label>
-            <textarea id='description' name="description" defaultValue=""/>
+            <textarea id='description' name="description" value={description} onChange={change}/>
           </div>
           <div>
             <label htmlFor="estimatatedTime">Estimated Time</label>
@@ -74,14 +100,16 @@ function Createcourse() {
               id="estimatedTime"
               name="estimatedTime"
               type="text"
-              defaultValue=""
+              value={estimatatedTime}
+              onChange={change}
             />
             <label htmlFor="Materials Needed">Materials Needed</label>
             <textarea
               id="materialsNeeded"
               name="materialsNeeded"
               type="text"
-              defaultValue=""
+              value={materialsNeeded}
+              onChange={change}
             />
                  </div>
             </div>

@@ -1,7 +1,7 @@
 import React, {useContext } from 'react';
 import Context from './components/Context'
 
-export default () => {
+export default  () => {
   let context = useContext(Context)
   const authUser = context.authenticatedUser;
   return (

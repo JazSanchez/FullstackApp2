@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Context } from "./Context";
 import Form from "./Form";
 
@@ -12,7 +12,6 @@ function UpdateCourse() {
 
   const [course, setCourse] = useState("");
   const [errors, setErrors] = useState([]);
-  const {id } = useParams();
 
   const submit = (e) => {
     const {id} = authUser;
