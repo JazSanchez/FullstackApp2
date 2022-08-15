@@ -65,7 +65,7 @@ const change = (e) =>{
       })
       .catch((err) => {
         console.log(err);
-        history("/error");
+        // history("/error");
       });
   };
 
@@ -90,7 +90,7 @@ const change = (e) =>{
               <div>
             <label htmlFor="title">Course Title</label>
             <input id="title" name="title" type="text" value={title} onChange={change} />
-            <p>By </p>
+            <p></p>
             <label htmlFor='description'>Course Description</label>
             <textarea id='description' name="description" value={description} onChange={change}/>
           </div>
