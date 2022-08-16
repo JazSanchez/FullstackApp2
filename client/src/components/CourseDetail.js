@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Context } from "./Context";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import Form from "./Form";
+// import axios from 'axios';
 // import ReactMarkdown from "react-markdown";
 
 export default function CourseDetail() {
@@ -10,101 +11,81 @@ export default function CourseDetail() {
   const authUser = context.authenticatedUser;
   console.log(context);
 
-  const [course, setCourse] = useState("");
-  const [title, setTitle] = useState('');
   const [id, setId] = useState(2);
-  const [description, setDescription] = useState("");
-  const [estimatedTime, setEstimatedTime] = useState('');
-  const [materialsNeeded, setMAterialsNeeded] = useState("");
-  const [errors, setErrors]= useState ([]);
 
+  const [course, setCourse] = useState([id]);
+  const [errors, setErrors] = useState([]);
 
- const change = (event) => {
-   const value = event.target.value;
-   switch (event.target.name){
-  case "title":
-    setTitle(value);
-    break;
-  case "id":
-    setId(value);
-    break;
-    case "description":
-      setDescription(value);
-      break;
-    case "estimatedTime":
-      setEstimatedTime(value);
-      break;
-    case "materialsNeeded":
-      setMAterialsNeeded(value);
-      break;
-    default:
-    return;
-   }
- }
-
-
-  const submit = () =>{
-    const emailAddress = authUser.emailAddress
-    const password = authUser.password
-    const userId = authUser.id
-    
+  const submit = (e) => {
+    const emailAddress = authUser.emailAddress;
+      const password = authUser.password;
     const id = {
-      course,
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
-      userId
-    }
-
-    console.log(id)
-
-
+      title: e.target[0].value,
+      description: e.target[1].value,
+      estimatedTime: e.target[2].value,
+      materialsNeeded: e.target[3].value,
+      userId: id,
+    };
 
     context.data
-      .getCourse(id, emailAddress, password)
+      .getCourse(id, emailAddress,password)
+      .then(res => {
+        setCourse(res)
+        console.log(res)
+      })
+      .then((errors) => {
+        if (errors.length) {
+          setErrors({ errors });
+        } else {
+          history("/");
+        console.log('course created')
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        history("/error");
+      });
+  };
+
+ 
+
+   const delCourse = (id) => {
+    const emailAddress = authUser.emailAddress
+    const password = authUser.password
+        context.data
+      .deleteCourse(id, emailAddress, password)
       .then((errors) => {
         if (errors.length) {
           setErrors({ errors });
         } else {
           // history("/");
-          console.log("course detail");
+          console.log("course deleted");
         }
       })
       .catch((err) => {
         console.log(err);
-        // history("/notfound");
+        history("/notfound");
       });
-  };
 
-
-  
-
-  // context.data
-  //   .deleteCourse(id)
-  //   .then((errors) => {
-  //     if (errors.length) {
-  //       setErrors({ errors });
-  //     } else {
-  //       // history("/");
-  //       console.log("course deleted");
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     // console.log(err);
-  //     // history("/notfound");
-  //   });
+   }
 
   const cancel = () => {
-    //  history('/');
+    history("/");
   };
 
   return (
     <main>
       <div className="action--bar">
         <div className="wrap">
-          
-
+          <Link className="button" to="">
+            Update Course
+          </Link>
+          <Link className="button" to="/" onChange={delCourse}>
+            Delete Course
+          </Link>
+          <Link className="button button-secondary" to="/">
+            Return to List
+          </Link>
         </div>
       </div>
       <div className="wrap">
@@ -113,42 +94,29 @@ export default function CourseDetail() {
           cancel={cancel}
           errors={errors}
           submit={submit}
-          submitButtonText="Create Course"
+          submitButtonText="Update Course"
           elements={() => (
             <React.Fragment>
               <div className="main--flex">
                 <div>
-                  <label htmlFor="title">{course.title}</label>
+                  <label htmlFor="title"></label>
                   <h4 className="course--name"></h4>
-                  <p>By {course.firstName} {course.lastName}</p>
-                  <p>
-                    High-end furniture projects are great to dream about. But
-                    unless you have a well-equipped shop and some serious
-                    woodworking experience to draw on, it can be difficult to
-                    turn the dream into a reality.
-                  </p>
-
-                  <p>
-                    Not every piece of furniture needs to be a museum showpiece,
-                    though. Often a simple design does the job just as well and
-                    the experience gained in completing it goes a long way
-                    toward making the next project even better.
-                  </p>
+                  <p>By</p>
+                  <p></p>
                 </div>
                 <div>
                   <h3 className="course--detail--title">Estimated Time</h3>
-                  <p>14 hours</p>
+                  <p>{course.estimatedTime}</p>
 
                   <h3 className="course--detail--title">Materials Needed</h3>
                   <ul className="course--detail--list">
-                    <li>1/2 x 3/4 inch parting strip</li>
+                    <li>{course.materialsNeeded}</li>
                   </ul>
                 </div>
               </div>
             </React.Fragment>
           )}
         />
-       
       </div>
     </main>
   );
