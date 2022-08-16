@@ -48,7 +48,7 @@ export default function CourseDetail() {
     const password = authUser.password
     const userId = authUser.id
     
-    const details = {
+    const id = {
       course,
       title,
       description,
@@ -57,12 +57,12 @@ export default function CourseDetail() {
       userId
     }
 
-    console.log(details)
+    console.log(id)
 
 
 
     context.data
-      .getCourse(details)
+      .getCourse(id, emailAddress, password)
       .then((errors) => {
         if (errors.length) {
           setErrors({ errors });
