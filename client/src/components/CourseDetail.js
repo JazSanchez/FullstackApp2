@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "./Context";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import axios from 'axios';
 import ReactMarkdown from "react-markdown";
 
 
@@ -11,43 +10,46 @@ export default function CourseDetail() {
   const authUser = context.authenticatedUser;
   console.log(context);
 
-  const [course, setCourse] = useState([]);
+  const [course, setCourse] = useState('');
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
 
 
   useEffect(() => {
-    context.data.getCourses()
+    context.data.getSingleCourse(id)
     .then(res => {
         console.log(res)
         setCourse(res)
+        
     })
     .catch(err => {
         console.log(err)
     })
 
 
-  }, [id]) 
-
+  }, []) 
 
  
 
-   const delCourse = (id) => {
+   const delCourse = () => {
     const emailAddress = authUser.emailAddress
     const password = authUser.password
         context.data
       .deleteCourse(id, emailAddress, password)
+      .then(res => {
+        console.log(res)
+      })
       .then((errors) => {
         if (errors.length) {
           setErrors({ errors });
+          console.log("course wasn't deleted")
         } else {
           history("/");
           console.log("course deleted");
         }
       })
-      .catch((err) => {
-        console.log(err);
-        history("/error");
+      .catch(() => {
+        history("/");
       });
 
    }
@@ -71,10 +73,11 @@ return (
           <div className="main--flex">
               <div>
                   <h3 className="course--detail--title">Course</h3>
-                  <h4 className="course--name"></h4>
+                  <h4 className="course--name">{course.title}</h4>
                     <p>
-                    By
+                    By 
                     </p>
+                    <p>{course.description}</p>
                   <ReactMarkdown></ReactMarkdown>    
               </div>
               <div>

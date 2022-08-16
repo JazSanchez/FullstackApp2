@@ -1,91 +1,155 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "./Context";
 import Form from "./Form";
 
 
 function UpdateCourse() {
+
   const history = useNavigate();
   const context = useContext(Context);
-  const authUser = context.authenticatedUser;
+  const authUser = context.authUser;
   console.log(context);
 
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
+  const [materialsNeeded, setMAterialsNeeded] = useState("");
   const [errors, setErrors] = useState([]);
-  const {id} = useParams;
+  const { id } = useParams();
 
-  const submit = (e) => {
-    const {id} = authUser;
-    console.log(authUser);
-    const course = {
-      title: e.target[0].value,
-      description: e.target[1].value,
-      estimatedTime: e.target[2].value,
-      materialsNeeded: e.target[3].value,
-        userId: id
-    };
 
-    context.data
-      .getCourse(course)
-      .then((errors) => {
-        if (errors.length) {
-          setErrors({ errors });
-        } else {
-        //   history.push("/");
-        console.log('course created')
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        // history.("/error");
-      });
-  };
+  useEffect(() => {
+    context.data.getSingleCourse(id)
+    .then(res => {
+        console.log(res)
+        setCourse(res)
+    })
+    .catch(err => {
+        console.log(err)
+    })
 
-  const cancel = () => {
-       history.push('/');
 
-  };
+  }, []) 
+
+
+  const change = (event) =>{
+    const value = event.target.value;
+    switch(event.target.name){
+      case "title":
+        setTitle(value);
+        break;
+      case "description":
+        setDescription(value);
+        break;
+      case "estimatedTime":
+        setEstimatedTime(value);
+        break;
+        case "materialsNeeded":
+          setMAterialsNeeded(value);
+          break;
+      default:
+        return;
+    }
+  
+  }
+
+ const submit = () => {
+  const emailAddress = authUser.emailAddress
+  const password = authUser.password
+   const course ={
+    title,
+    description,
+    estimatedTime,
+    materialsNeeded
+   }
+
+
+  context.data.updateCourse(course, id , emailAddress, password)
+  .then(res => {
+    console.log(res)
+  })
+  .then((errors) => {
+    if (errors.length) {
+      setErrors({ errors });
+    } else {
+      history("/");
+    console.log('course updated')
+    }
+  })
+  .catch(() => {
+    history("/");
+  });
+
+
+
+
+ }
+
+ const cancel = () => {
+  history('/courses');
+
+};
+
+ 
+
 
   return (
-    <div className="wrap">
-      <h2>Update Course</h2>
-      <Form
-        cancel={cancel}
-        errors={errors}
-        submit={submit}
-        submitButtonText="Update Course"
-        elements={() => (
-          <React.Fragment>
-            <label htmlFor="firstName">Title</label>
-            <input id="title" name="title" type="text" defaultValue="" />
-            <label htmlFor="description">Desc ription</label>
-            <input
-              id="description"
-              name="description"
-              type="text"
-              defaultValue=""
+<main>
+        <div className="wrap">
+            <h2>Update Course</h2>
+            <Form
+                cancel={cancel}
+                errors={errors}
+                submit={submit}
+                submitButtonText="Update Course"
+                elements={() =>(
+                <React.Fragment>
+                    <div className="main--flex">
+                        <div>
+                            <label htmlFor="title">Course Title</label>
+                            <input  
+                                id="courseTitle" 
+                                name="title" 
+                                type="text" 
+                                defaultValue=''
+                                onChange={change}   
+                                />
+                              
+                                <p> By </p>
+                        
+                            <label htmlFor="description">Course Description</label>
+                            <textarea 
+                                id="description" 
+                                name="description"
+                                defaultValue=''
+                                onChange={change}
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="estimatedTime">Estimated Time</label>
+                            <input 
+                                id="estimatedTime" 
+                                name="estimatedTime" 
+                                type="text" 
+                                defaultValue=''
+                                onChange={change}
+                                />
+                            <label htmlFor="materialsNeeded">Materials Needed</label>
+                            <textarea 
+                                id="materialsNeeded" name="materialsNeeded"
+                                defaultValue=''
+                                onChange={change}
+                                />
+                        </div>
+                    </div>
+                </React.Fragment>
+                )}
             />
-            <label htmlFor="Estimated Time">Estimated Time</label>
-            <input
-              id="estimatedTime"
-              name="estimatedTime"
-              type="text"
-              defaultValue=""
-            />
-            <label htmlFor="Materials Needed">Materials Needed</label>
-            <input
-              id="materialsNeeded"
-              name="materialsNeeded"
-              type="text"
-              defaultValue=""
-            />
-          </React.Fragment>
-        )}
-      />
-      {/* <p> */}
-      {/* Already have a user account? <Link to="/signin">Click here</Link> to sign in! */}
-      {/* </p> */}
-    </div>
+            </div>
+        </main>   
   );
 }
 export default UpdateCourse;

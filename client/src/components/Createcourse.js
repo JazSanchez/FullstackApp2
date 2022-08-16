@@ -62,7 +62,10 @@ const change = (e) =>{
    }
 
     context.data
-      .getCourse(course, emailAddress, password)
+      .createCourse(course, emailAddress, password)
+      .then(res => {
+        console.log(res)
+      })
       .then((errors) => {
         if (errors.length) {
           setErrors({ errors });
@@ -71,9 +74,8 @@ const change = (e) =>{
         console.log('course created')
         }
       })
-      .catch((err) => {
-        console.log(err);
-        history("/error");
+      .catch(() => {
+        history("/");
       });
   };
 
