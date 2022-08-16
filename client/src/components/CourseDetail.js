@@ -4,6 +4,7 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from 'axios';
 import ReactMarkdown from "react-markdown";
 
+
 export default function CourseDetail() {
   const history = useNavigate();
   const context = useContext(Context);
@@ -70,11 +71,11 @@ return (
           <div className="main--flex">
               <div>
                   <h3 className="course--detail--title">Course</h3>
-                  <h4 className="course--name">{course.title}</h4>
+                  <h4 className="course--name"></h4>
                     <p>
-                    By {course.user.firstName} {course.user.lastName}
+                    By
                     </p>
-                  <ReactMarkdown>{course.description}</ReactMarkdown>    
+                  <ReactMarkdown></ReactMarkdown>    
               </div>
               <div>
                   <h3 className="course--detail--title">Estimated Time</h3>
