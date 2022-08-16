@@ -12,11 +12,12 @@ function Createcourse() {
   console.log(authUser);
 
 
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState('');
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [estimatatedTime, setEstimatedTime] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMAterialsNeeded] = useState("");
+  const [userId, setUserId] = useState(authUser)
   const [errors, setErrors] = useState([]);
 
 const change = (e) =>{
@@ -33,46 +34,60 @@ const change = (e) =>{
       break;
       case "materialsNeeded":
         setMAterialsNeeded(value);
+      case "userId":
+      setUserId(value);
         break;
     default:
       return;
   }
+
 }
 
 
 
-  const submit = (e) => {
+
+  const submit = () => {
    const emailAddress = authUser.emailAddress
    const password = authUser.password
+   const userId = authUser.id
  
+   console.log(authUser)
     // const course = {
-    //   title: e.target[0].value,
+    //   title: event.target[0].value,
     //   description: e.target[1].value,
     //   estimatedTime: e.target[2].value,
     //   materialsNeeded: e.target[3].value,
     //     userId: ''
     // };
+   const course = {
+     title,
+     description,
+     estimatedTime,
+     materialsNeeded,
+     userId
+   }
 
     context.data
-      .createCourse(emailAddress, password, course)
+      .getCourse(course, emailAddress, password)
       .then((errors) => {
         if (errors.length) {
           setErrors({ errors });
         } else {
-          history("/");
+          history("/courses");
         console.log('course created')
         }
       })
       .catch((err) => {
         console.log(err);
-        // history("/error");
+        history("/error");
       });
   };
 
   const cancel = () => {
-       history('/');
+       history('/courses');
 
   };
+
 
 
   return (
@@ -100,7 +115,7 @@ const change = (e) =>{
               id="estimatedTime"
               name="estimatedTime"
               type="text"
-              value={estimatatedTime}
+              value={estimatedTime}
               onChange={change}
             />
             <label htmlFor="Materials Needed">Materials Needed</label>
@@ -116,9 +131,6 @@ const change = (e) =>{
           </React.Fragment>
         )}
       />
-      <p> 
-      Already have a user account? <Link to="/signin">Click here</Link> to sign in!
-      </p>
     </div>
     </main>
   );

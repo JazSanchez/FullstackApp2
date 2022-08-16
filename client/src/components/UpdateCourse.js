@@ -45,23 +45,6 @@ function UpdateCourse() {
 
   };
 
-  // const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     addCourse(title, description)
-  // };
-
-  // const addCourse = (title, description) => {
-  //      context.data.createCourse('', {
-  //         title: title,
-  //         description: description,
-  //     })
-  //     .then((response)=> {
-  //         setCourse([response.data, ... course]);
-  //     });
-  //     setTitle('');
-  //     setDescription('');
-  // }
-
   return (
     <div className="wrap">
       <h2>Update Course</h2>

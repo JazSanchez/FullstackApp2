@@ -12,18 +12,16 @@ export default function CourseDetail() {
 
   const [course, setCourse] = useState("");
   const [title, setTitle] = useState('');
-  const [id, setId] = useState([]);
+  const [id, setId] = useState(2);
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState('');
-  const [material, setMAterialsNeeded] = useState("");
+  const [materialsNeeded, setMAterialsNeeded] = useState("");
   const [errors, setErrors]= useState ([]);
+
 
  const change = (event) => {
    const value = event.target.value;
    switch (event.target.name){
-  case "course":
-    setCourse(value);
-    break;
   case "title":
     setTitle(value);
     break;
@@ -36,7 +34,7 @@ export default function CourseDetail() {
     case "estimatedTime":
       setEstimatedTime(value);
       break;
-    case "material":
+    case "materialsNeeded":
       setMAterialsNeeded(value);
       break;
     default:
@@ -46,11 +44,21 @@ export default function CourseDetail() {
 
 
   const submit = () =>{
+    const emailAddress = authUser.emailAddress
+    const password = authUser.password
+    const userId = authUser.id
+    
     const details = {
       course,
       title,
-      id
+      description,
+      estimatedTime,
+      materialsNeeded,
+      userId
     }
+
+    console.log(details)
+
 
 
     context.data
@@ -60,7 +68,7 @@ export default function CourseDetail() {
           setErrors({ errors });
         } else {
           // history("/");
-          console.log("course created");
+          console.log("course detail");
         }
       })
       .catch((err) => {
@@ -95,21 +103,24 @@ export default function CourseDetail() {
     <main>
       <div className="action--bar">
         <div className="wrap">
-        <React.Fragment>
-                    <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
-                    <button className="button" to="/">Delete Course</button> 
-                    <Link className="button button-secondary" to="/">Return to List</Link>
-                    </React.Fragment>
+          
 
         </div>
       </div>
       <div className="wrap">
         <h2>Course Detail</h2>
+        <Form
+          cancel={cancel}
+          errors={errors}
+          submit={submit}
+          submitButtonText="Create Course"
+          elements={() => (
+            <React.Fragment>
               <div className="main--flex">
                 <div>
-                  <label htmlFor="title">Course </label>
-                  <h4 className="course--name">Build a Basic Bookcase</h4>
-                  <p>By </p>
+                  <label htmlFor="title">{course.title}</label>
+                  <h4 className="course--name"></h4>
+                  <p>By {course.firstName} {course.lastName}</p>
                   <p>
                     High-end furniture projects are great to dream about. But
                     unless you have a well-equipped shop and some serious
@@ -134,6 +145,10 @@ export default function CourseDetail() {
                   </ul>
                 </div>
               </div>
+            </React.Fragment>
+          )}
+        />
+       
       </div>
     </main>
   );

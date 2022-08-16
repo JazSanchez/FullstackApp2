@@ -7,7 +7,6 @@ import Courses from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import Createcourse from "./components/Createcourse";
 import UpdateCourse from "./components/UpdateCourse";
-import Forbidden from "./components/Forbidden";
 import Header from "./components/Header";
 import UserSignIn from "./components/UserSignIn";
 import UserSignOut from "./components/UserSignOut";
@@ -15,6 +14,7 @@ import UserSignUp from "./components/UserSignUp";
 import withContext from './components/Context';
 import PrivateRoute from "./PrivateRoute";
 import Authenticated from "./Authenticated";
+import Error from "./components/Error";
 
 const HeaderWithContext = withContext(Header);
 const UserSignUpWithContext = withContext(UserSignUp);
@@ -31,7 +31,7 @@ function App() {
           <Routes>
             <Route element={<PrivateRoute /> }>
             <Route path="/authenticated" component={Authenticated} />
-            <Route path="/courses/create" element={<Createcourse />}/>
+            <Route path="/courses" element={<Createcourse />}/>
             <Route path="/courses/:id/update" element={<UpdateCourse />}/>
             </Route>
             <Route path="/" element= {<Courses />} />
@@ -39,7 +39,7 @@ function App() {
             <Route path='/signin' element={<UserSignInWithContext />} />
             <Route path='/signout' element={<UserSignOutWithContext />} />
             <Route path='/signup' element={<UserSignUpWithContext />} />
-            <Route path ='/forbidden' element={<Forbidden />} />
+            <Route path='/error' element={<Error />}/>
           </Routes>
           </div>
         </BrowserRouter>

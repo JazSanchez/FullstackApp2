@@ -52,7 +52,7 @@ export default class Data {
 
 
   async getCourses(id) {
-    const response = await this.api(`/courses`, 'GET', null );
+    const response = await this.api(`/courses`, 'GET', null, id );
     if (response.status === 200) {
       return response.json().then(data => data);
     }
@@ -66,7 +66,7 @@ export default class Data {
 
   
   async createCourse(course, emailAddress, password) {
-    const response = await this.api(`/courses/create`, 'POST', true, course, {emailAddress, password} );
+    const response = await this.api(`/courses`, 'POST', course, true, {emailAddress, password} );
     if (response.status === 201) {
       return response.json().then(data => data);
     }
