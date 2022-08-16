@@ -52,13 +52,7 @@ const change = (e) =>{
    const userId = authUser.id
  
    console.log(authUser)
-    // const course = {
-    //   title: event.target[0].value,
-    //   description: e.target[1].value,
-    //   estimatedTime: e.target[2].value,
-    //   materialsNeeded: e.target[3].value,
-    //     userId: ''
-    // };
+ 
    const course = {
      title,
      description,
