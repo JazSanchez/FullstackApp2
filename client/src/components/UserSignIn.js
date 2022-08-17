@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Link, useHistory} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import Form from './Form';
 
 export default class UserSignIn extends Component {
@@ -80,7 +80,7 @@ export default class UserSignIn extends Component {
             return { errors: [ 'Sign-in was unsuccessful' ] };
           });
         } else {
-          this.props.history.push(from);
+          this.props.history.push('/');
           console.log(`Registered ${emailAddress}`)
         }
       })

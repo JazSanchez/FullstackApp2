@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
-import Data from './Data';
 
+//Import dependencies
+import React, { Component } from 'react';
+import Data from './Data'; 
+
+//Create a variable I can export 
 export const Context = React.createContext(); 
 
+// 
 export class Provider extends Component {
 
+
+  //Set up the initial state of authenticatedUser, password and course
   state = {
     authenticatedUser: null,
     password: '',
@@ -13,7 +19,7 @@ export class Provider extends Component {
 
   
 
-
+//A constructed that holds any newData created
   constructor() {
     super();
     this.data = new Data();
@@ -22,8 +28,9 @@ export class Provider extends Component {
   
 
   render() {
-    const { authenticatedUser } = this.state;
+    const { authenticatedUser } = this.state;// Variable that hold the state of the authenticatedUser
 
+    //A variable named value that holds the authenticatedUser, data and actions that may be inputed/changed and passed down the component tree
     const value = {
       authenticatedUser,
       data: this.data,
@@ -33,16 +40,17 @@ export class Provider extends Component {
       }
     }
     return (
+      //The Context.Provider which hold the value of the information and passes it on to all it's children
       <Context.Provider value={value }>
         {this.props.children}
       </Context.Provider>  
     );
   }
 
-  
+  //SignIn async fn that takes in two arguments(emailAddress and Password)
   signIn = async (emailAddress, password) => {
-    const user = await this.data.getUser(emailAddress, password);
-    if (user !== null) {
+    const user = await this.data.getUser(emailAddress, password);//Variable named user that awaits a promise. The returned promise will be the authenticatedUsers email and password
+    if (user !== null) {//
       user.password = password;
       this.setState(() => {
         return {
@@ -80,38 +88,3 @@ export default function withContext(Component) {
 
 
 
-// import React, { useState, useEffect } from "react";
-// import Data from "./Data";
-
-
-// export const Context = React.createContext();
-
-// export const Provider = (props) => {
-//   const data = new Data();
-
-//   const value = {  data };
-//   return( <Context.Provider value={value}>{props.children}</Context.Provider>);
-
-//   // const signIn = async (username, password) => {
-//   //   const user = await data.getUser(username, password);
-//   // };
-
-//   // const signOut = () => {};
-// };
-
-// export const Consumer = Context.Consumer;
-// /**
-//  * A higher-order component that wraps the provided component in a Context Consumer component.
-//  * @param {class} Component - A React component.
-//  * @returns {function} A higher-order component.
-//  */
-
-//  export default function withContext(Component) {
-//   return function ContextComponent(props) {
-//     return (
-//       <Context.Consumer>
-//         {context => <Component {...props} context={context} />}
-//       </Context.Consumer>
-//     );
-//   }
-// }
