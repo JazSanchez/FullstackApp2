@@ -50,6 +50,8 @@ const change = (e) =>{
 
 // Created a variable named submit that upon submission makes a Post request 
   const submit = () => {
+
+    //Variables that store what needs to be passed into the createCourse function
    const emailAddress = authUser.emailAddress
    const password = authUser.password
    const userId = authUser.id
@@ -68,22 +70,28 @@ const change = (e) =>{
     context.data
       .createCourse(course, emailAddress, password)
       .then(res => {
-        console.log(res)
-      })
-      .then((errors) => {
-        if (errors.length) {
-          setErrors({ errors });
-        } else {
-          history.push("/");
-        console.log('course created')
+        if (res.errors) {
+          console.log("hi")
         }
       })
+      // .then(res => {
+      //   console.log(res)
+      // })
+      // .then((errors) => {
+      //   if (errors.length) {
+      //     setErrors({ errors });
+      //   } else {
+      //     history.push("/");
+      //   console.log('course created')
+      //   }
+      // })
       .catch(() => {
-        history.push("/");
+        history.push('/')
       });
    
   };
 
+  // a variable that stores a function that redirects users to the main page
   const cancel = () => {
        history.push('/');
 

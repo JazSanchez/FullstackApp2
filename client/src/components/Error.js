@@ -1,5 +1,7 @@
+// Import dependencies
 import React from 'react';
 
+//funcion component named Error That renders a page when there is an error
 function Error() {
     return(
         <main>

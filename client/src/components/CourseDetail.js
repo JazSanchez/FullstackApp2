@@ -28,13 +28,17 @@ export default function CourseDetail() {
     context.data
       .getSingleCourse(id)
       .then((res) => {//The response from the request
-        console.log(res);
-        setCourse(res);
+        console.log(res)
+ 
       })
+      // .then((res) => {//The response from the request
+      //   console.log(res);
+      //   setUser(res);
+      // })
       .catch((err) => {//Errors caught 
         console.log(err);
       });
-  });
+  }, [id]);
 
 
   // Created a variable function to fetch the data from the context.data.deleteCourse which is a function in the data.js that retrieves the data from the url endpoint
@@ -64,7 +68,7 @@ export default function CourseDetail() {
     <main>
       <div className="actions--bar">
         <div className="wrap">
-          {/*If and authUser is logged in the 3 Link buttons will render */}
+          {/*If and authUser is logged in, the 3 Link buttons will render */}
         {authUser ? (
           <React.Fragment>
             <Link className="button" to={`/courses/${id}/update`}>
@@ -84,7 +88,7 @@ export default function CourseDetail() {
             </Link>
               </React.Fragment>
               )}
-              {/*If no authUser is logged in only the Return to List button will*/}
+              {/*If no authUser is logged in only the Return to List button will render*/}
         </div>
       </div>
       <div className="wrap">
@@ -94,7 +98,7 @@ export default function CourseDetail() {
             <div>
               <h3 className="course--detail--title">Course</h3>
               <h4 className="course--name">{course.title}</h4>
-              <p>{`By ${user.firstName} ${user.lastName}  `}</p>
+              <p>{`By`}</p>
               <p>{course.description}</p>
               <ReactMarkdown></ReactMarkdown>
             </div>

@@ -70,7 +70,7 @@ export default class Data {
     if (response.status === 201) {
       return response.json().then(data => data);
     }
-    else if (response.status === 401) {
+    else if (response.status === 400) {
       return null;
     }
     else {
