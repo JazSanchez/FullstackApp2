@@ -64,6 +64,7 @@ const change = (e) =>{
      userId
    }
 
+   // Used the context.data gathered from the context component which got the data from datat.js to make a Post request to create a course
     context.data
       .createCourse(course, emailAddress, password)
       .then(res => {
@@ -80,6 +81,7 @@ const change = (e) =>{
       .catch(() => {
         history.push("/");
       });
+   
   };
 
   const cancel = () => {
