@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "./Context";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 
 export default function CourseDetail() {
-  const history = useNavigate();
+  let history = useHistory();
   const context = useContext(Context);
   const authUser = context.authenticatedUser;
   console.log(context);
@@ -44,12 +44,12 @@ export default function CourseDetail() {
           setErrors({ errors });
           console.log("course wasn't deleted")
         } else {
-          history("/");
+          history.push("/");
           console.log("course deleted");
         }
       })
       .catch(() => {
-        history("/");
+        history.push("/");
       });
 
    }

@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Context } from "./Context";
 import Form from "./Form";
 
 
 function Createcourse() {
 
-  const history = useNavigate();
+  let history = useHistory();
   const context = useContext(Context);
   const authUser = context.authenticatedUser;
   console.log(authUser);
@@ -70,17 +70,17 @@ const change = (e) =>{
         if (errors.length) {
           setErrors({ errors });
         } else {
-          history("/courses");
+          history.push("/");
         console.log('course created')
         }
       })
       .catch(() => {
-        history("/");
+        history.push("/");
       });
   };
 
   const cancel = () => {
-       history('/courses');
+       history.push('/');
 
   };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, ProtectedRoute} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import "./index.css";
 
 
@@ -13,7 +13,7 @@ import UserSignOut from "./components/UserSignOut";
 import UserSignUp from "./components/UserSignUp";
 import withContext from './components/Context';
 import PrivateRoute from "./PrivateRoute";
-import Authenticated from "./Authenticated";
+// import Authenticated from "./Authenticated";
 import Error from "./components/Error";
 
 const HeaderWithContext = withContext(Header);
@@ -25,24 +25,22 @@ function App() {
   return (
   
       <div id="root">
-        <BrowserRouter>
+        <Router>
         <div>
           < HeaderWithContext />
-          <Routes>
-            <Route element={<PrivateRoute /> }>
-            <Route path="/authenticated" component={Authenticated} />
-            <Route path="/courses" element={<Createcourse />}/>
-            <Route path="/courses/:id/update" element={<UpdateCourse />}/>
-            </Route>
-            <Route path="/" element= {<Courses />} />
-            <Route path="/courses/:id" element={<CourseDetail />} />
-            <Route path='/signin' element={<UserSignInWithContext />} />
-            <Route path='/signout' element={<UserSignOutWithContext />} />
-            <Route path='/signup' element={<UserSignUpWithContext />} />
-            <Route path='/error' element={<Error />}/>
-          </Routes>
+          <Switch>
+            {/* <PrivateRoute path='/authenticated' component={Authenticated}  /> */}
+            <Route  path="/" component={Courses} />
+            <PrivateRoute exact path="/courses/create" component={Createcourse}/>
+            <PrivateRoute  path="/courses/:id/update" component={UpdateCourse}/>
+            <Route  path="/courses/:id"component={CourseDetail} />
+            <Route  path='/signin' component={UserSignInWithContext} />
+            <Route  path='/signout' component={UserSignOutWithContext} />
+            <Route  path='/signup' component={UserSignUpWithContext} />
+            <Route  path='/error' component={Error}/>
+          </Switch>
           </div>
-        </BrowserRouter>
+        </Router>
       </div>
 
 

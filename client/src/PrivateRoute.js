@@ -1,17 +1,17 @@
 import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { Consumer } from './components/Context';
 
 export default ({ component: Component, ...rest }) => {
   return (
     <Consumer>
       {context => (
-        <Outlet
+        <Route
           {...rest}
           render={props => context.authenticatedUser ? (
               <Component {...props} />
             ) : (
-              <Navigate to={{
+              <Redirect to={{
                 pathname: '/signin',
                 state: { from: props.location }
               }} />

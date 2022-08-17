@@ -1,9 +1,13 @@
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
 import Form from './Form';
 
+
+
 export default class UserSignUp extends Component {
+
+ 
   state = {
     firstName: '',
     lastName: '',
@@ -19,7 +23,10 @@ export default class UserSignUp extends Component {
       emailAddress,
       password,
       errors,
+
     } = this.state;
+
+ 
 
     return (
       <div className="bounds">
@@ -100,7 +107,8 @@ export default class UserSignUp extends Component {
       emailAddress,
       password,
     };
-
+    
+ 
     context.data.createUser(user)
       .then( errors => {
         if (errors.length) {
@@ -109,18 +117,19 @@ export default class UserSignUp extends Component {
           context.actions.signIn(emailAddress, password)
             .then(() => {
               console.log(`${password} ${emailAddress}`)
-              // this.props.history.push('/authenticated');
+             
+              this.props.history.push('/');
             });
         }
       })
       .catch((err) => {
         console.log(err);
-        // this.props.history.push('/error');
+        this.props.history.push('/error');
       });
 
   }
 
   cancel = () => {
-  //  this.props.history.push('/');
+   this.props.history.push('/');
   }
 }

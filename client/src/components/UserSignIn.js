@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
 import Form from './Form';
 
 export default class UserSignIn extends Component {
@@ -14,7 +14,7 @@ export default class UserSignIn extends Component {
   }
 
   render() {
-//  const history = useNavigate();
+
     const {
       emailAddress,
       password,
@@ -80,17 +80,17 @@ export default class UserSignIn extends Component {
             return { errors: [ 'Sign-in was unsuccessful' ] };
           });
         } else {
-          // this.props.history(from);
+          this.props.history.push(from);
           console.log(`Registered ${emailAddress}`)
         }
       })
       .catch((error) => {
         console.error(error);
-        // this.props.history('/error');
+        this.props.history.push('/error');
       });
   }
 
   cancel = () => {
-    // history('/');
+    this.props.history.push('/');
   }
 }

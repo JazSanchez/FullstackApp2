@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Context } from "./Context";
 import Form from "./Form";
 
 
 function UpdateCourse() {
 
-  const history = useNavigate();
+  let history = useHistory();
   const context = useContext(Context);
   const authUser = context.authUser;
   console.log(context);
@@ -74,12 +74,12 @@ function UpdateCourse() {
     if (errors.length) {
       setErrors({ errors });
     } else {
-      history("/");
+      history.push("/");
     console.log('course updated')
     }
   })
   .catch(() => {
-    history("/");
+    history.push("/");
   });
 
 
@@ -88,7 +88,7 @@ function UpdateCourse() {
  }
 
  const cancel = () => {
-  history('/courses');
+  history.push('/courses');
 
 };
 
