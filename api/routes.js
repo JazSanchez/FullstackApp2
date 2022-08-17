@@ -95,7 +95,7 @@ router.get(
 
 //Post route that creates a new course
 router.post(
-  "/courses",
+  "/courses/create",
   authenticateUser,
   asyncHandler(async (req, res) => {
     try {

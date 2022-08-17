@@ -50,7 +50,7 @@ export class Provider extends Component {
   //SignIn async fn that takes in two arguments(emailAddress and Password)
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);//Variable named user that awaits a promise. The returned promise will be the authenticatedUsers email and password
-    if (user !== null) {//
+    if (user !== null) {//If user is not null then an authenticated user will be returned
       user.password = password;
       this.setState(() => {
         return {
@@ -60,13 +60,14 @@ export class Provider extends Component {
     }
     return user;
   }
-
+ 
+  //SignOut function that sets the authenticated User to null
   signOut = () => {
     this.setState({ authenticatedUser: null });
   }
 }
 
-export const Consumer = Context.Consumer;
+export const Consumer = Context.Consumer;//exports the consumer
 
 /**
  * A higher-order component that wraps the provided component in a Context Consumer component.

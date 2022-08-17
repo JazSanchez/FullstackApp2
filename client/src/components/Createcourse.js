@@ -1,18 +1,19 @@
+//import Dependencies
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Context } from "./Context";
 import Form from "./Form";
 
-
+//Created afunctional component named Createcourse
 function Createcourse() {
 
-  let history = useHistory();
-  const context = useContext(Context);
-  const authUser = context.authenticatedUser;
+  let history = useHistory();//Used the useHistory and plugged it into a variable
+  const context = useContext(Context);// Plugged in the useContext into a variable
+  const authUser = context.authenticatedUser;//Got the authenticatedUser and plugged it into a variable
   console.log(authUser);
 
-
-  const [course, setCourse] = useState('');
+  //Created state properties
+  // const [course, setCourse] = useState('');
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
@@ -20,8 +21,10 @@ function Createcourse() {
   const [userId, setUserId] = useState(authUser)
   const [errors, setErrors] = useState([]);
 
+
+  // created a variable named change that takes in all the properties that may experience a change
 const change = (e) =>{
-  const value = e.target.value;
+  const value = e.target.value;//stored the event.target.value of any given change in a variable named value
   switch(e.target.name){
     case "title":
       setTitle(value);
@@ -45,7 +48,7 @@ const change = (e) =>{
 
 
 
-
+// Created a variable named submit that upon submission makes a Post request 
   const submit = () => {
    const emailAddress = authUser.emailAddress
    const password = authUser.password

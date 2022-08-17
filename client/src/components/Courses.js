@@ -1,15 +1,20 @@
+//imported Dependencies
 import React, { useState, useEffect, useContext }from 'react';
 import { Context } from './Context';
 import { Link } from 'react-router-dom';
 
 function Courses() {
-    const context = useContext( Context);
+    const context = useContext( Context);// Plugged in the useContext into a variable
     console.log(context);
+
+
+      //Created state properties
     const [courses, setCourses] = useState([])
 
+      //useEffect to fetch the data from the context.data.getCourses which is a function in the data.js that retrieves the data from the url endpoint
     useEffect(() => {
       context.data.getCourses()
-      .then(res => {
+      .then(res => {//The response data
           console.log(res)
           setCourses(res)
       })
