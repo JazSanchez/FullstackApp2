@@ -35,7 +35,7 @@ export default function CourseDetail() {
       .catch((err) => {//Errors caught 
         console.log(err);
       });
-  }, [id]);
+  }, [id, errors]);
 
 
   // Created a variable function to fetch the data from the context.data.deleteCourse which is a function in the data.js that retrieves the data from the url endpoint
@@ -96,8 +96,7 @@ export default function CourseDetail() {
               <h3 className="course--detail--title">Course</h3>
               <h4 className="course--name">{course.title}</h4>
               <p>{`By ${user.firstName} ${user.lastName}`}</p>
-              <p>{course.description}</p>
-              <ReactMarkdown></ReactMarkdown>
+              <ReactMarkdown><p>{course.description}</p></ReactMarkdown>
             </div>
             <div>
               <h3 className="course--detail--title">Estimated Time</h3>
