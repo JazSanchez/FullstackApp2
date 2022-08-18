@@ -28,13 +28,9 @@ export default function CourseDetail() {
     context.data
       .getSingleCourse(id)
       .then((res) => {//The response from the request
-        console.log(res)
- 
+        console.log(res);
+        setUser(res);
       })
-      // .then((res) => {//The response from the request
-      //   console.log(res);
-      //   setUser(res);
-      // })
       .catch((err) => {//Errors caught 
         console.log(err);
       });
@@ -98,7 +94,7 @@ export default function CourseDetail() {
             <div>
               <h3 className="course--detail--title">Course</h3>
               <h4 className="course--name">{course.title}</h4>
-              <p>{`By`}</p>
+              <p>{`By ${course.firstName}`}</p>
               <p>{course.description}</p>
               <ReactMarkdown></ReactMarkdown>
             </div>

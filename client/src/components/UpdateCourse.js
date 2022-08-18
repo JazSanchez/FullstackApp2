@@ -28,7 +28,7 @@ function UpdateCourse() {
   useEffect(() => {
     context.data
       .getSingleCourse(id)
-      // In the .then I took in all the 
+      // In the .then I took in all the needed properties
       .then( course => {
         setTitle(course.title)
         setDescription(course.description)
@@ -44,8 +44,9 @@ function UpdateCourse() {
   }, [id]);
 
 
-
+//// Created a variable named submit that upon submission makes a PUT request 
   const submit = () => {
+    //Variables that store what needs to be passed into the updateCourse function
     const emailAddress = authUser.emailAddress;
     const password = authUser.password;
     const course = {
@@ -57,11 +58,12 @@ function UpdateCourse() {
       lastName
     };
 
+    // Used the context.data gathered from the context component which got the data from datat.js to make a PUT request to update a course
     context.data
       .updateCourse(id, course, emailAddress, password)
       .then(res => {
         if (res.errors) {
-         setErrors(res.errors)
+         console.log(res.errors)
         }
       })
       .catch(() => {
@@ -69,8 +71,9 @@ function UpdateCourse() {
       });
   };
 
+  // created a variable named change that takes in all the properties that may experience a change
   const change = (event) => {
-    const value = event.target.value;
+    const value = event.target.value;//stored the event.target.value of any given change in a variable named value
     switch (event.target.name) {
       case "title":
         setTitle(value);
@@ -95,6 +98,7 @@ function UpdateCourse() {
     }
   };
 
+  // a variable that stores a function that redirects users to the main page
   const cancel = () => {
     history.push("/");
   };
@@ -122,7 +126,7 @@ function UpdateCourse() {
                   />
 
                   <p>
-                    {`By`}
+                    {`By ${course.User.firstName}`}
                   </p>
 
                   <label htmlFor="description">Course Description</label>

@@ -1,12 +1,14 @@
-
+//import dependencies
 import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
 import Form from './Form';
 
+
+//Created a class component named UserSignIN
 export default class UserSignIn extends Component {
   
   
-  
+  // stored the initial state of properties 
   state = {
     emailAddress: '',
     password: '',
@@ -15,6 +17,7 @@ export default class UserSignIn extends Component {
 
   render() {
 
+    // added this.state to the properties
     const {
       emailAddress,
       password,
@@ -57,10 +60,13 @@ export default class UserSignIn extends Component {
     );
   }
 
+  //A change event that listened for any cahnges made to state
   change = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const name = event.target.name;// The change in name was stored in a variable named name
+    const value = event.target.value;// The change in name was stored in a variable named name
 
+
+    //The returened state
     this.setState(() => {
       return {
         [name]: value
@@ -68,6 +74,7 @@ export default class UserSignIn extends Component {
     });
   }
 
+  //The submit function is where the context action was gathered and where it showed if the submission was successful or there was an error
   submit = () => {
     const { context } = this.props;
     // const { from } = this.props.location.state || { from: { pathname: '/authenticated' } };
@@ -90,6 +97,7 @@ export default class UserSignIn extends Component {
       });
   }
 
+  //The cancel function redirects the users back to the main page 
   cancel = () => {
     this.props.history.push('/');
   }
