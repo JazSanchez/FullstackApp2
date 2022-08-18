@@ -12,7 +12,6 @@ function UpdateCourse() {
   const authUser = context.authenticatedUser;//
 
 //Created State properties
-  const [course, setCourse] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
@@ -121,7 +120,7 @@ function UpdateCourse() {
                     id="courseTitle"
                     name="title"
                     type="text"
-                    defaultValue={title}
+                    value={title}
                     onChange={change}
                   />
 
@@ -133,7 +132,7 @@ function UpdateCourse() {
                   <textarea
                     id="description"
                     name="description"
-                    defaultValue={description}
+                    value={description}
                     onChange={change}
                   />
                 </div>
