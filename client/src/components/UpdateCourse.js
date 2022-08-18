@@ -11,7 +11,7 @@ function UpdateCourse() {
   const context = useContext(Context);// Created a variable for the Context imported
   const authUser = context.authenticatedUser;//
 
-
+//Created State properties
   const [course, setCourse] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -22,9 +22,13 @@ function UpdateCourse() {
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
 
+
+
+    //useEffect to fetch the data from the context.data.getSingleCourse which is a function in the data.js that retrieves the data from the url endpoint
   useEffect(() => {
     context.data
       .getSingleCourse(id)
+      // In the .then I took in all the 
       .then( course => {
         setTitle(course.title)
         setDescription(course.description)
@@ -37,7 +41,7 @@ function UpdateCourse() {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, [id]);
 
 
 
@@ -54,20 +58,14 @@ function UpdateCourse() {
     };
 
     context.data
-      .updateCourse(course, id, emailAddress, password)
-      .then((res) => {
-        console.log(res);
-      })
-      .then((errors) => {
-        if (errors.length) {
-          setErrors({ errors });
-        } else {
-          history.push("/");
-          console.log("course updated");
+      .updateCourse(id, course, emailAddress, password)
+      .then(res => {
+        if (res.errors) {
+         setErrors(res.errors)
         }
       })
       .catch(() => {
-        history.push("/");
+        history.push('/')
       });
   };
 
@@ -124,7 +122,7 @@ function UpdateCourse() {
                   />
 
                   <p>
-                    {`By ${course.firstName} ${course.lastName}`}
+                    {`By`}
                   </p>
 
                   <label htmlFor="description">Course Description</label>

@@ -13,7 +13,6 @@ function Createcourse() {
   console.log(authUser);
 
   //Created state properties
-  // const [course, setCourse] = useState('');
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
@@ -71,20 +70,9 @@ const change = (e) =>{
       .createCourse(course, emailAddress, password)
       .then(res => {
         if (res.errors) {
-          console.log("hi")
+          setErrors(res.errors)
         }
       })
-      // .then(res => {
-      //   console.log(res)
-      // })
-      // .then((errors) => {
-      //   if (errors.length) {
-      //     setErrors({ errors });
-      //   } else {
-      //     history.push("/");
-      //   console.log('course created')
-      //   }
-      // })
       .catch(() => {
         history.push('/')
       });
