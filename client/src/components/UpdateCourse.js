@@ -63,7 +63,12 @@ function UpdateCourse() {
       .updateCourse(id, course, emailAddress, password)
       .then(res => {
         if (res.errors) {
-          setErrors(res.errors)
+          console.log("hi")
+        }
+      })
+      .then(res => {
+        if (res.errors) {
+          setErrors(errors)
         }
       })
       .catch(() => {
