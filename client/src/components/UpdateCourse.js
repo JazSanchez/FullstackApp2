@@ -34,8 +34,8 @@ function UpdateCourse() {
         setDescription(course.description)
         setEstimatedTime(course.estimatedTime)
         setMAterialsNeeded(course.materialsNeeded)
-        setFirstName(course.firstName)
-        setLastName(course.lastName)
+        setFirstName(course.User.firstName)
+        setLastName(course.User.lastName)
      
       })
       .catch((err) => {
@@ -63,7 +63,7 @@ function UpdateCourse() {
       .updateCourse(id, course, emailAddress, password)
       .then(res => {
         if (res.errors) {
-         console.log(res.errors)
+          setErrors(res.errors)
         }
       })
       .catch(() => {
@@ -126,7 +126,7 @@ function UpdateCourse() {
                   />
 
                   <p>
-                    {`By ${course.User.firstName}`}
+                    {`By ${firstName} ${lastName}`}
                   </p>
 
                   <label htmlFor="description">Course Description</label>
