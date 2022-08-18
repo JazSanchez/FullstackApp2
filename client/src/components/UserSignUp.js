@@ -1,6 +1,6 @@
 //import dependencies
 import React, { Component } from 'react';
-import { Link, useHistory} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Form from './Form';
 
 
@@ -31,7 +31,7 @@ export default class UserSignUp extends Component {
  
 
     return (
-      <div className="bounds">
+      <div className="form--centered">
         <div className="grid-33 centered signin">
           <h1>Sign Up</h1>
           <Form
@@ -74,9 +74,7 @@ export default class UserSignUp extends Component {
                    />
               </React.Fragment>
             )} />
-          <p>
-            Already have a user account? <Link to="/signin">Click here</Link> to sign in!
-          </p>
+          <p>Already have a user account? Click here to <Link to="/signin">sign in</Link>!</p>
         </div>
       </div>
     );

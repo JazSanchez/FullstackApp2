@@ -25,7 +25,7 @@ export default class UserSignIn extends Component {
     } = this.state;
 
     return (
-      <div className="bounds">
+      <div className="form--centered">
         <div className="grid-33 centered signin">
           <h1>Sign In</h1>
           <Form 
@@ -52,9 +52,8 @@ export default class UserSignIn extends Component {
               </React.Fragment>
             )} 
             /> 
-          <p>
-            Don't have a user account? <Link to="/signup">Click here</Link> to sign up!
-          </p>
+          
+          <p>Don't have a user account? Click here to <Link to="/signup">sign up</Link>!</p>
         </div>
       </div>
     );

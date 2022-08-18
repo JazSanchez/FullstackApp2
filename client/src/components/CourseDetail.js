@@ -29,7 +29,7 @@ export default function CourseDetail() {
       .getSingleCourse(id)
       .then((res) => {//The response from the request
         // console.log(res);
-        setCourse(course)
+        setCourse(res)
         setUser(res.User);
       })
       .catch((err) => {//Errors caught 
@@ -66,7 +66,7 @@ export default function CourseDetail() {
       <div className="actions--bar">
         <div className="wrap">
           {/*If and authUser is logged in, the 3 Link buttons will render */}
-        {authUser ? (
+        {authUser && authUser.id === user.id  ? (
           <React.Fragment>
             <Link className="button" to={`/courses/${id}/update`}>
               Update Course

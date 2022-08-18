@@ -18,22 +18,27 @@ export default class Header extends React.PureComponent {
             {/*If the user is authenticated thw users name will render in the header saying welcome*/}
             {authUser ? (
               <React.Fragment>
-                <span>Welcome, {authUser.firstName}!</span>
-                <Link className="signout" to="/signout">
-                  Sign Out
-                </Link>
+                <ul className="header--signedin">
+                  <span>Welcome, {authUser.firstName}!</span>
+                 <li> <Link className="signout" to="/signout">
+                    Sign Out
+                  </Link></li>
+                </ul>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <Link className="signup" to="/signup">
-                  Sign Up
-                </Link>
-                <Link className="signin" to="/signin">
-                  Sign In
-                </Link>
+                <ul className="header--signedout">
+                <li> <Link className="signup" to="/signup">
+                    Sign Up
+                  </Link></li> 
+
+              <li>    <Link className="signin" to="/signin">
+                    Sign In
+                  </Link></li>
+                </ul>
               </React.Fragment>
             )}
-                 {/*If the user is not authenticated the user SignUp and SignIn will render*/}
+            {/*If the user is not authenticated the user SignUp and SignIn will render*/}
           </nav>
         </div>
       </header>

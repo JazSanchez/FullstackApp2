@@ -63,66 +63,70 @@ export default class Data {
   async getCourses(id, emailAddress, password) {
     const response = await this.api(`/courses`, 'GET', id, null, true,  { emailAddress, password } ); //The GET request takes in these arguments
     if (response.status === 200) {//If the response is 200 meaning ok it returns the data
-      return response.json().then(data => data);//Returns the 
+      return response.json().then(data => data);//Returns the courses
     }
     else if (response.status === 401) {
-      return null;
+      return null;//Else if there is a bad request no courses are given
     }
     else {
-      throw new Error();
+      throw new Error();//Else throw error
     }
   }
 
-  
+  //The createCourse uses a async operation that POSTs a new courses using the api() method 
   async createCourse(course, emailAddress, password) {
-    const response = await this.api(`/courses/create`, 'POST', course, true, {emailAddress, password} );
-    if (response.status === 201) {
-      return response.json().then(data => data);
+    const response = await this.api(`/courses/create`, 'POST', course, true, {emailAddress, password} );//The POST request takes in these arguments
+    if (response.status === 201) {//If the response status is 201 it was a success
+      return response.json().then(data => data);//Returns a newly created course
     }
-    else if (response.status === 400) {
-      return response.json().then(data => data);
+    else if (response.status === 400) {//else if the request was 400 the request was bad
+      return response.json().then(data => data);//Returns validation errors
     }
     else {
-      throw new Error();
+      throw new Error();//else throw error
     }
   }
 
+  //The createCourse uses a async operation that PUTs an update to courses using the api() method 
   async updateCourse(id, course, emailAddress, password) {
-    const response = await this.api(`/courses/${id}`, 'PUT', course, true, {emailAddress, password});
-    if (response.status === 204) {
-      return response.json().then(data => data);
+    const response = await this.api(`/courses/${id}`, 'PUT', course, true, {emailAddress, password});//The PUT request takes in these arguments
+    if (response.status === 204) {//if the response was successfull the status is 204 
+      return response.json().then(data => data);// Returns an updated course
     }
-    else if (response.status === 400) {
-      return response.json().then(data => { return data.errors}) ;
+    else if (response.status === 400) {//if the request is bad it throws 400 
+      return response.json().then(data => 
+        data) ;// Returns validation errors
     }
     else {
-      throw new Error();
+      throw new Error();//else throw error
     }
   }
 
+  //The deleteCourse uses a async operation that uses a DELETE method to delete a course using the api() method 
   async deleteCourse(id, emailAddress, password) {
-    const response = await this.api(`/courses/${id}`, 'DELETE', null, true, {emailAddress, password} );
-    if (response.status === 204) {
-      return response.json().then(data => data);
+    const response = await this.api(`/courses/${id}`, 'DELETE', null, true, {emailAddress, password} );//The DELETE request takes in these arguments
+    if (response.status === 204) {//Successful response
+      return response.json().then(data => data);//Returns the data(excluding the deleted request )
     }
-    else if (response.status === 401) {
-      return null;
+    else if (response.status === 401) {//Bad request
+      return null;//Returns null
     }
     else {
-      throw new Error();
+      throw new Error();//Throws error
     }
   }
 
+  //The getSingleCourse uses a async operation that uses a GET method to get a single course using the api() method 
   async getSingleCourse(id) {
-    const response = await this.api(`/courses/${id}`, 'GET', null, false );
-    if (response.status === 200) {
-      return response.json().then(data => data);
+    const response = await this.api(`/courses/${id}`, 'GET', null, false );//These are the arguments it takes
+    if (response.status === 200) {//Successful request
+      return response.json().then(data => data);//Returns the single course
     }
-    else if (response.status === 401) {
-      return null;
+    else if (response.status === 401) {//Bad request
+      return null;//Nothing is returned
     }
     else {
-      throw new Error();
+      throw new Error();// Throws error
     }
   }
 

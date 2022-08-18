@@ -41,7 +41,7 @@ function UpdateCourse() {
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, [id, errors]);
 
 
 //// Created a variable named submit that upon submission makes a PUT request 
@@ -63,12 +63,7 @@ function UpdateCourse() {
       .updateCourse(id, course, emailAddress, password)
       .then(res => {
         if (res.errors) {
-          console.log("hi")
-        }
-      })
-      .then(res => {
-        if (res.errors) {
-          setErrors(errors)
+          setErrors(res.errors)
         }
       })
       .catch(() => {
